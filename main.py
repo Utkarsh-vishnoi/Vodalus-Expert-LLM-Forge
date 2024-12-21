@@ -85,7 +85,9 @@ async def generate_data(
 
 def load_huggingface_dataset(dataset_name, split="train"):
     print(f"Loading dataset: {dataset_name}")
-    dataset = load_dataset(dataset_name, split=split, trust_remote_code=True)
+    
+    # dataset = load_dataset(dataset_name, split=split, trust_remote_code=True)
+    dataset = load_dataset(dataset_name, name=split, trust_remote_code=True)
     print("Dataset loaded!")
     return dataset
 
