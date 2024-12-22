@@ -7,6 +7,7 @@ from llm_handler import send_to_llm  # Import the send_to_llm function from the 
 from params import OUTPUT_FILE_PATH, NUM_WORKERS, PROVIDER  # Import constants from the params module
 from datasets import load_dataset
 from huggingface_hub import list_datasets
+import asyncio
 
 # Set the provider for the language model to "local-model"
 PROVIDER = "local-model"
@@ -95,6 +96,9 @@ def search_huggingface_datasets(query, limit=10):
     datasets = list_datasets(filter=query, limit=limit)
     return [dataset.id for dataset in datasets]
 
+def run_generate_data(*args):
+    asyncio.run(generate_data(*args))
+
 # Define the main function to orchestrate the data generation process
 def main(dataset):
     nn = 0
@@ -109,7 +113,7 @@ def main(dataset):
             system_message_generation = PROMPT_1
             futures.append(
                 executor.submit(
-                    generate_data,
+                    run_generate_data,
                     topic_selected,
                     system_message_generation,
                     system_message_selected,
