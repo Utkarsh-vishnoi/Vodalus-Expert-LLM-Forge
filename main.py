@@ -84,11 +84,11 @@ async def generate_data(
 
     return data
 
-def load_huggingface_dataset(dataset_name, split="train"):
+def load_huggingface_dataset(dataset_name, subset, split="train"):
     print(f"Loading dataset: {dataset_name}")
     
     # dataset = load_dataset(dataset_name, split=split, trust_remote_code=True)
-    dataset = load_dataset(dataset_name, name=split, trust_remote_code=True)
+    dataset = load_dataset(dataset_name, subset, split=split, trust_remote_code=True)
     print("Dataset loaded!")
     return dataset
 
@@ -139,5 +139,5 @@ def main(dataset):
 
 if __name__ == "__main__":
     # Load a default dataset (e.g., Wikipedia) if no dataset is provided
-    default_dataset = load_huggingface_dataset("wikipedia", split="20220301.en")
+    default_dataset = load_huggingface_dataset("wikipedia", "20220301.en")
     main(default_dataset)
